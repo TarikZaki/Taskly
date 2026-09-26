@@ -1,0 +1,56 @@
+<section class="w-full max-w-xl rounded-lg bg-white p-6 sm:p-12 flex flex-col ">
+    <div class="mb-6 flex flex-col items-center justify-center gap-2">
+        <h1 class="text-[30px] font-headline-lg text-slate-900 leading-9">Create your workspace</h1>
+        <p class="text-slate-600 leading-5 text-body-md">Join the editorial approach to task management.</p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="submit()" class="flex flex-col gap-6" novalidate>
+        <app-form-field label="Name" forId="name" hint="3-50 characters, letters only."
+            [error]="err(registerForm.controls.name)">
+            <input id="name" class="form-control" formControlName="name"
+                [placeholder]="err(registerForm.controls.name) ?? 'Enter your full name'" />
+        </app-form-field>
+
+        <app-form-field label="Email" forId="email" [error]="err(registerForm.controls.email)">
+            <input id="email" type="email" class="form-control" formControlName="email"
+                [placeholder]="err(registerForm.controls.email) ?? 'yourname@company.com'" />
+        </app-form-field>
+
+        <app-form-field label="Job title (optional)" forId="jobTitle">
+            <input id="jobTitle" class="form-control" formControlName="jobTitle" placeholder="e.g. Project Manager" />
+        </app-form-field>
+
+        <div class="grid gap-6 sm:grid-cols-2">
+            <app-form-field label="Password" forId="password" [error]="err(registerForm.controls.password)">
+                <app-password-input inputId="password" [errorText]="err(registerForm.controls.password)"
+                    formControlName="password" />
+            </app-form-field>
+
+            <app-form-field label="Confirm password" forId="confirmPassword" [error]="confirmError">
+                <app-password-input inputId="confirmPassword" [errorText]="confirmError"
+                    formControlName="confirmPassword" />
+            </app-form-field>
+        </div>
+        <ul class="flex flex-col gap-2 rounded-lg bg-surface-low p-4">
+            @for (rule of rules(); track rule.label) {
+            <li class="flex items-center gap-2 text-label-sm tracking-normal text-slate-600">
+                <span class="flex size-4 shrink-0 items-center justify-center rounded-full ">
+                    @if (rule.ok) {
+                    <img class="size-2" src="/icons/checked.svg" alt="check icon" />
+                    } @else {
+                    <img class="size-2" src="/icons/circle.svg" alt="check icon" />
+                    }
+                </span>
+                {{ rule.label }}
+            </li>
+            }
+        </ul>
+        <app-button class="w-full" type="submit" class="mt-6 w-full">Create
+            account</app-button>
+    </form>
+
+    <p class="mt-8 text-center text-body-md text-slate-600">
+        Already have an account?
+        <a routerLink="/login" class="font-bold text-primary hover:underline">Log in</a>
+    </p>
+</section>
