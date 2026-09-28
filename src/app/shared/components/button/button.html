@@ -1,0 +1,9 @@
+<button [type]="type()" [disabled]="disabled()"
+    class="w-full rounded-button bg-linear-to-r from-primary to-primary-container py-3 text-body-md font-bold text-white cursor-pointer">
+    @if (isLoading()) {
+    <span class="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></span>
+    <span>Processing...</span>
+    } @else {
+    <ng-content />
+    }
+</button>
